@@ -13,5 +13,5 @@ export interface IUser {
   businessPhone?: number;
   personalPhone: number;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 }

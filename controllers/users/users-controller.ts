@@ -1,10 +1,15 @@
 import { Request, Response } from "express";
+import { createUserStore } from "./users-store";
 
 export const createUser = async (req: Request, res: Response) => {
-  const body = req.body;
-  console.log("esto vale body ", body);
-  res.status(201).json({
-    message: "created",
-    data: { body },
-  });
+  try {
+    const body = req.body;
+    const data = await createUserStore(body);
+    res.status(201).json({
+      message: "created",
+      data,
+    });
+  } catch (error) {
+    console.error("[createUserError]: ", error);
+  }
 };

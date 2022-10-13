@@ -10,12 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createUser = void 0;
+const users_store_1 = require("./users-store");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const body = req.body;
-    console.log("esto vale body ", body);
-    res.status(201).json({
-        message: "created",
-        data: { body },
-    });
+    try {
+        const body = req.body;
+        const data = yield (0, users_store_1.createUserStore)(body);
+        res.status(201).json({
+            message: "created",
+            data,
+        });
+    }
+    catch (error) {
+        console.error("[createUserError]: ", error);
+    }
 });
 exports.createUser = createUser;
