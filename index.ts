@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express"; //ESModules
 import { routerApi } from "./routes";
 import { configDev } from "./config";
 import { dbConnection } from "./db/config";
+import { boomErroHandler } from "./middlewares/boomErrorHandler";
 
 const app: Express = express();
 const { port, host, dbUrl } = configDev;
@@ -11,6 +12,8 @@ dbConnection(dbUrl as string);
 app.use(express.json());
 
 routerApi(app);
+//middleware to handleErrors
+app.use(boomErroHandler);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express and typeScript server!!!!!");
