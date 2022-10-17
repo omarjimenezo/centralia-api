@@ -6,7 +6,7 @@ const password = Joi.string().min(8).max(10).alphanum();
 const lastName = Joi.string();
 const name = Joi.string();
 const personalPhone = Joi.number().min(10);
-const rol = Joi.number();
+const rol = Joi.string().not("");
 const email = Joi.string().email({
   minDomainSegments: 2,
   tlds: { allow: ["com", "net"] },

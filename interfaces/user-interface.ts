@@ -1,7 +1,9 @@
+import { string } from "joi";
+
 enum rolUser {
-  Provider = 1,
-  Business = 2,
-  Agent = 3,
+  Provider = "provider",
+  Business = "business",
+  Agent = "agent",
 }
 
 export interface IUser {
@@ -15,3 +17,7 @@ export interface IUser {
   password: string;
   confirmPassword: string;
 }
+
+export type messageDB = {
+  message?: string;
+};

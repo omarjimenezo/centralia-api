@@ -9,7 +9,7 @@ const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
   personalPhone: { type: Number, required: true },
   password: { type: String, required: true },
-  rol: { type: Number, required: true },
+  rol: { type: String, required: true },
   email: { type: String, required: true, unique: true },
 });
 const User = model<IUser>("User", userSchema);
