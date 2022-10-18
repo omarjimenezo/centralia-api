@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser } from "../controllers/users/users-controller";
+import { createUser, loginUser } from "../controllers/users/users-controller";
 import { userSchema } from "../schemas/userSchema";
 import { validationHandler } from "../middlewares/validationHandler";
 
@@ -10,5 +10,6 @@ routerUser.post(
   validationHandler(userSchema, "body"),
   createUser
 );
+routerUser.post("/login-user", loginUser);
 
 export default routerUser;

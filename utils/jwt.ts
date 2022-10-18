@@ -1,2 +1,26 @@
 import jwt from "jsonwebtoken";
-export const generateJWT = () => {};
+import { argumenstJWT } from "../interfaces/user-interface";
+
+export const generateJWT = async ({ uid, name, rol }: argumenstJWT) => {
+  const payload = { uid, name, rol };
+  try {
+    return await new Promise<string>((resolve, reject) => {
+      jwt.sign(
+        payload,
+        process.env.SECRET_JWT_SEED as string,
+        {
+          expiresIn: "7d",
+        },
+        (err, token) => {
+          if (err) {
+            console.error("[errorGenerateJWT]: ", err);
+            reject("We can't generate the token");
+          }
+          resolve(token as string);
+        }
+      );
+    });
+  } catch (err) {
+    return "Something go wrong trying to genereate the token";
+  }
+};

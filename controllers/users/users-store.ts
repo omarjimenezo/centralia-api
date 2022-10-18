@@ -1,6 +1,7 @@
 import { encryptPassword } from "../../helpers/encrypt";
 import { models } from "../../models/user-model";
 import { IUser, messageDB } from "../../interfaces/user-interface";
+import { generateJWT } from "../../utils/jwt";
 
 export const createUserStore = async (body: { [index: string]: any }) => {
   try {
@@ -11,6 +12,12 @@ export const createUserStore = async (body: { [index: string]: any }) => {
       const encryptData = encryptPassword(body);
       const user = new User<IUser>(encryptData);
       const responseDB = await user.save();
+      //generate JWT
+      if (responseDB) {
+        const { _id: uid, name, rol } = responseDB;
+        const token = await generateJWT({ uid, name, rol });
+        return { responseDB, token };
+      }
       return responseDB;
     } else {
       const messageErrorDB: messageDB = { message: "" };

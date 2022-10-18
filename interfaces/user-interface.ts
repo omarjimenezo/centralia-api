@@ -1,4 +1,4 @@
-import { string } from "joi";
+import { Types } from "mongoose";
 
 enum rolUser {
   Provider = "provider",
@@ -20,4 +20,10 @@ export interface IUser {
 
 export type messageDB = {
   message?: string;
+};
+
+export type argumenstJWT = {
+  name: string;
+  uid: Types.ObjectId;
+  rol: string;
 };

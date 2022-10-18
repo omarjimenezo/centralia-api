@@ -20,3 +20,5 @@ export const createUser = async (req: Request, res: Response) => {
     return "Something go wrong trying to create the user";
   }
 };
+
+export const loginUser = async (req: Request, res: Response) => {};
