@@ -1,15 +1,15 @@
 import jwt from "jsonwebtoken";
 import { argumenstJWT } from "../interfaces/user-interface";
 
-export const generateJWT = async ({ uid, name, rol }: argumenstJWT) => {
-  const payload = { uid, name, rol };
+export const generateJWT = async ({ uid, nombre, rol }: argumenstJWT) => {
+  const payload = { uid, nombre, rol };
   try {
     return await new Promise<string>((resolve, reject) => {
       jwt.sign(
         payload,
         process.env.SECRET_JWT_SEED as string,
         {
-          expiresIn: "7d",
+          expiresIn: "120",
         },
         (err, token) => {
           if (err) {

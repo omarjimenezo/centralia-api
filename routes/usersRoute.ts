@@ -10,6 +10,6 @@ routerUser.post(
   validationHandler(userSchema, "body"),
   createUser
 );
-routerUser.post("/login-user", loginUser);
+//routerUser.post("/login-user", loginUser);
 
 export default routerUser;

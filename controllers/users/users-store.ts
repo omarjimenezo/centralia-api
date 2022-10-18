@@ -14,14 +14,15 @@ export const createUserStore = async (body: { [index: string]: any }) => {
       const responseDB = await user.save();
       //generate JWT
       if (responseDB) {
-        const { _id: uid, name, rol } = responseDB;
-        const token = await generateJWT({ uid, name, rol });
+        const { _id: uid, nombre, rol } = responseDB;
+        const token = await generateJWT({ uid, nombre, rol });
+        //Todo do not return entire user just a string that is "usuario creado"
         return { responseDB, token };
       }
       return responseDB;
     } else {
-      const messageErrorDB: messageDB = { message: "" };
-      messageErrorDB.message = "Something go wrong trying to create the user";
+      const messageErrorDB: messageDB = { mensaje: "" };
+      messageErrorDB.mensaje = "Something go wrong trying to create the user";
       return messageErrorDB;
     }
   } catch (error: any) {

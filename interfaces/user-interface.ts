@@ -1,29 +1,29 @@
 import { Types } from "mongoose";
 
 enum rolUser {
-  Provider = "provider",
-  Business = "business",
-  Agent = "agent",
+  Proveedor = "proveedor",
+  Vendedor = "vendedor",
+  Agente = "agente",
 }
 
 export interface IUser {
   avatar: string;
-  name: string;
-  lastName: string;
+  nombre: string;
+  apellido: string;
   rol: rolUser;
   email: string;
-  businessPhone?: number;
-  personalPhone: number;
+  telefono_negocio?: number;
+  telefono_personal: number;
   password: string;
   confirmPassword: string;
 }
 
 export type messageDB = {
-  message?: string;
+  mensaje?: string;
 };
 
 export type argumenstJWT = {
-  name: string;
+  nombre: string;
   uid: Types.ObjectId;
   rol: string;
 };

@@ -2,8 +2,8 @@ import { Response } from "express";
 
 export const responseSuccess = (resp: Response, data: any, code: any) => {
   resp.status(code).json({
-    error: false,
-    message: "created",
+    codigo: 0,
+    mensaje: "Usuario Creado",
     data,
   });
 };
@@ -15,7 +15,7 @@ export const responseError = (
   const { output } = code;
   const { statusCode, payload } = output;
   resp.status(statusCode).json({
-    error: true,
-    message: `${data}: ${payload.message}`,
+    codigo: 1,
+    mensage: `${data}: ${payload.message}`,
   });
 };

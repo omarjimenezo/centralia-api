@@ -11,8 +11,8 @@ export const createUser = async (req: Request, res: Response) => {
     if (typeof data === "string") {
       responseError(res, data, boom.serverUnavailable());
     } else if (typeof data === "object") {
-      data?.message
-        ? responseError(res, data.message, boom.badRequest())
+      data?.mensaje
+        ? responseError(res, data.mensaje, boom.badRequest())
         : responseSuccess(res, data, 201);
     }
   } catch (error) {
