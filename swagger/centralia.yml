@@ -1,0 +1,196 @@
+openapi: 3.0.3
+info:
+    description: Service definition for Centralia web services
+    version: 1.0.0
+    title: Swagger Centralia
+    license:
+        name: Apache 2.0
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+servers:
+    - url: "http://localhost:4200"
+tags:
+    - name: Auth
+      description: Operaciones de sesión
+    - name: Usuarios
+      description: Operaciones de usuario
+    - name: Proveedores
+      description: Operaciones de proveedores
+    - name: Catalogo
+      description: Operaciones de productos
+    - name: Pedidos
+      description: Operaciones de pedidos
+paths:
+    /auth:
+        post:
+            tags:
+                - Auth
+            summary: Inicio de Sesión
+            description: Solicita token de autorizacion a traves de credenciales de usuario
+            operationId: auth
+            requestBody:
+                description: Iniciar Sesión
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/AuthReq"
+            responses:
+                "200":
+                    description: Operacion exitosa
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: "#/components/schemas/ResComun"
+                                    - properties:
+                                          data:
+                                              $ref: "#/components/schemas/AuthRes"
+                "400":
+                    description: Invalid user/password supplied
+                "404":
+                    description: user/password not found
+    /usuario:
+        get:
+            tags:
+                - Usuarios
+            summary: Obtener usuarios
+            description: Obtiene la lista de usuarios de la plataforma
+            operationId: getUser
+            responses:
+                "200":
+                    description: Operacion exitosa
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: "#/components/schemas/ResComun"
+                                    - properties:
+                                          data:
+                                              $ref: "#/components/schemas/UsuariosRes"
+                "404":
+                    description: Operacion no encontrada
+            security:
+                - bearerAuth: []
+        post:
+            tags:
+                - Usuarios
+            summary: Crear usuario
+            description: Se crea un usuario nuevo
+            operationId: createUser
+            requestBody:
+                description: Datos del usuario
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/UsuarioReq"
+            responses:
+                "200":
+                    description: Operacion exitosa
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ResComun"
+                "400":
+                    description: Datos inconrrectos
+                "404":
+                    description: Operacion no encontrada
+            security:
+                - bearerAuth: []
+    /usuario/{usuarioId}:
+        get:
+            tags:
+                - Usuarios
+            summary: Obtener usuario POR id
+            description: Obtiene la lista de usuarios de la plataforma
+            operationId: getUser
+            parameters:
+                - name: usuarioId
+                  in: path
+                  description: ID de usuario
+                  required: true
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                "200":
+                    description: Operacion exitosa
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: "#/components/schemas/ResComun"
+                                    - properties:
+                                          data:
+                                              $ref: "#/components/schemas/UsuarioRes"
+                "404":
+                    description: Operacion no encontrada
+            security:
+                - bearerAuth: []
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+    schemas:
+        AuthReq:
+            type: object
+            properties:
+                email:
+                    type: string
+                    example: usuario@dominio.com
+                    description: Email del usuario
+                    format: email
+                password:
+                    type: string
+                    description: Contraseña del usuario
+                    format: password
+
+        AuthRes:
+            type: object
+            properties:
+                token:
+                    type: string
+                    description: Token de autorizacion
+
+        UsuarioReq:
+            type: object
+            properties:
+                nombre:
+                    type: string
+                apellido:
+                    type: string
+                rol:
+                    type: integer
+                    format: int32
+                    enum:
+                        - 0
+                        - 1
+                        - 2
+                        - 3
+                    default: 2
+                    description: Tipo de usuario
+
+        UsuariosRes:
+            type: array
+            items:
+                $ref: "#/components/schemas/UsuarioRes"
+
+        UsuarioRes:
+            type: object
+            properties:
+                nombre:
+                    type: string
+                apellido:
+                    type: string
+                rol:
+                    type: integer
+                    format: int32
+
+        ResComun:
+            type: object
+            properties:
+                codigo:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
