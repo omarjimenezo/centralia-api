@@ -3,6 +3,28 @@ import { models } from "../../models/user-model";
 import { IUser, messageDB } from "../../interfaces/user-interface";
 import { generateJWT } from "../../utils/jwt";
 
+const dataResponse: messageDB = {
+  mensaje: "",
+};
+const returnResponse = (
+  isUnique: any,
+  responseDB: any = undefined,
+  token: string | undefined = undefined
+) => {
+  if (token) {
+    dataResponse.mensaje = "usuario creado";
+    dataResponse.token = token;
+    return dataResponse;
+  } else if (isUnique) {
+    dataResponse.mensaje = "Algo salio mal al crear el usuario";
+    dataResponse.codigo_de_error = 1;
+    return dataResponse;
+  } else if (!responseDB) {
+    dataResponse.mensaje = "Algo salio mal al crear el usuario";
+    dataResponse.codigo_de_error = 1;
+  }
+};
+
 export const createUserStore = async (body: { [index: string]: any }) => {
   try {
     const { User } = models;
@@ -16,17 +38,17 @@ export const createUserStore = async (body: { [index: string]: any }) => {
       if (responseDB) {
         const { _id: uid, nombre, rol } = responseDB;
         const token = await generateJWT({ uid, nombre, rol });
-        //Todo do not return entire user just a string that is "usuario creado"
-        return { responseDB, token };
+        const data = returnResponse(isUniqueEmail, responseDB, token);
+        return data;
       }
-      return responseDB;
+      const data = returnResponse(isUniqueEmail, responseDB);
+      return data;
     } else {
-      const messageErrorDB: messageDB = { mensaje: "" };
-      messageErrorDB.mensaje = "Something go wrong trying to create the user";
-      return messageErrorDB;
+      const data = returnResponse(isUniqueEmail);
+      return data;
     }
   } catch (error: any) {
     console.error("[createUserStoreFail]: ", error.message);
-    return "Something go wrong trying to create the user";
+    return "Algo salio mal al crear el usuario";
   }
 };

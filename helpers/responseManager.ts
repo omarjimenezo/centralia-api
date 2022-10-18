@@ -3,7 +3,6 @@ import { Response } from "express";
 export const responseSuccess = (resp: Response, data: any, code: any) => {
   resp.status(code).json({
     codigo: 0,
-    mensaje: "Usuario Creado",
     data,
   });
 };
@@ -15,7 +14,7 @@ export const responseError = (
   const { output } = code;
   const { statusCode, payload } = output;
   resp.status(statusCode).json({
-    codigo: 1,
-    mensage: `${data}: ${payload.message}`,
+    codigo: data.codigo_de_error,
+    mensage: `${data.mensaje}: ${payload.message}`,
   });
 };

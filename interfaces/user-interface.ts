@@ -19,7 +19,9 @@ export interface IUser {
 }
 
 export type messageDB = {
-  mensaje?: string;
+  mensaje: string;
+  token?: string | undefined;
+  codigo_de_error?: number;
 };
 
 export type argumenstJWT = {
