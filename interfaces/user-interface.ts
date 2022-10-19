@@ -1,5 +1,3 @@
-import { Types } from "mongoose";
-
 enum rolUser {
   Proveedor = "proveedor",
   Vendedor = "vendedor",
@@ -17,15 +15,3 @@ export interface IUser {
   password: string;
   confirmPassword: string;
 }
-
-export type messageDB = {
-  mensaje: string;
-  token?: string | undefined;
-  codigo_de_error?: number;
-};
-
-export type argumenstJWT = {
-  nombre: string;
-  uid: Types.ObjectId;
-  rol: string;
-};

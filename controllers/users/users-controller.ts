@@ -2,7 +2,7 @@ import boom from "@hapi/boom";
 import { Request, Response } from "express";
 import { createUserStore } from "./users-store";
 import { responseError, responseSuccess } from "../../helpers/responseManager";
-import { messageDB } from "../../interfaces/user-interface";
+import { messageDB } from "../../types/user-types";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -17,7 +17,7 @@ export const createUser = async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error("[createUserError]: ", error);
-    return "Something go wrong trying to create the user";
+    return "Algo salio mal al crear el usuario";
   }
 };
 
