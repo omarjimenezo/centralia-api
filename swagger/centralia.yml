@@ -40,7 +40,7 @@ paths:
                         application/json:
                             schema:
                                 allOf:
-                                    - $ref: "#/components/schemas/ResComun"
+                                    - $ref: "#/components/schemas/RespuestaComun"
                                     - properties:
                                           data:
                                               $ref: "#/components/schemas/AuthRes"
@@ -62,10 +62,10 @@ paths:
                         application/json:
                             schema:
                                 allOf:
-                                    - $ref: "#/components/schemas/ResComun"
+                                    - $ref: "#/components/schemas/RespuestaComun"
                                     - properties:
                                           data:
-                                              $ref: "#/components/schemas/UsuariosRes"
+                                              $ref: "#/components/schemas/UsuariosRespuesta"
                 "404":
                     description: Operacion no encontrada
             security:
@@ -81,14 +81,14 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/UsuarioReq"
+                            $ref: "#/components/schemas/UsuarioRequest"
             responses:
                 "200":
                     description: Operacion exitosa
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ResComun"
+                                $ref: "#/components/schemas/RespuestaComun"
                 "400":
                     description: Datos inconrrectos
                 "404":
@@ -101,12 +101,11 @@ paths:
                 - Usuarios
             summary: Obtener usuario POR id
             description: Obtiene la lista de usuarios de la plataforma
-            operationId: getUser
+            operationId: getUserById
             parameters:
                 - name: usuarioId
                   in: path
                   description: ID de usuario
-                  required: true
                   schema:
                       type: integer
                       format: int64
@@ -117,10 +116,10 @@ paths:
                         application/json:
                             schema:
                                 allOf:
-                                    - $ref: "#/components/schemas/ResComun"
+                                    - $ref: "#/components/schemas/RespuestaComun"
                                     - properties:
                                           data:
-                                              $ref: "#/components/schemas/UsuarioRes"
+                                              $ref: "#/components/schemas/UsuarioRespuesta"
                 "404":
                     description: Operacion no encontrada
             security:
@@ -134,6 +133,7 @@ components:
     schemas:
         AuthReq:
             type: object
+            required: [ email, password ]
             properties:
                 email:
                     type: string
@@ -152,9 +152,12 @@ components:
                     type: string
                     description: Token de autorizacion
 
-        UsuarioReq:
+        UsuarioRequest:
             type: object
+            required: [ nombre, apellido, rol, telefono_personal, password, confirmPassword ]
             properties:
+                email: 
+                    type: string
                 nombre:
                     type: string
                 apellido:
@@ -162,22 +165,29 @@ components:
                 rol:
                     type: integer
                     format: int32
-                    enum:
-                        - 0
-                        - 1
-                        - 2
-                        - 3
-                    default: 2
-                    description: Tipo de usuario
+                avatar: 
+                    type: string
+                telefono_negocio: 
+                    type: integer
+                    format: int32
+                telefono_personal: 
+                    type: integer
+                    format: int32
+                confirmPassword:
+                    type: string
+                password:
+                    type: string
 
-        UsuariosRes:
+        UsuariosRespuesta:
             type: array
             items:
-                $ref: "#/components/schemas/UsuarioRes"
+                $ref: "#/components/schemas/UsuarioRespuesta"
 
-        UsuarioRes:
+        UsuarioRespuesta:
             type: object
             properties:
+                email:
+                    type: string
                 nombre:
                     type: string
                 apellido:
@@ -185,8 +195,16 @@ components:
                 rol:
                     type: integer
                     format: int32
+                avatar:
+                    type: string
+                telefono_negocio:
+                    type: integer
+                    format: int32
+                telefono_personal:
+                    type: integer
+                    format: int32
 
-        ResComun:
+        RespuestaComun:
             type: object
             properties:
                 codigo:
