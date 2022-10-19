@@ -1,17 +1,18 @@
-enum rolUser {
-  Provider = 1,
-  Business = 2,
-  Agent = 3,
-}
-
 export interface IUser {
   avatar: string;
-  name: string;
-  lastName: string;
-  rol: rolUser;
+  nombre: string;
+  apellido: string;
+  rol?: rolUser;
   email: string;
-  businessPhone?: number;
-  personalPhone: number;
-  password: string;
-  confirmPassword: string;
+  telefono_personal: number;
+  password?: string;
+  confirmPassword?: string;
+  negocio_id: number;
+}
+
+enum rolUser {
+  Admin = 0,
+  Proveedor = 1,
+  Negocio = 2,
+  Agente = 3,
 }
