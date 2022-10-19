@@ -2,7 +2,7 @@ import boom from "@hapi/boom";
 import { Request, Response } from "express";
 import { createUserStore } from "./users-store";
 import { responseError, responseSuccess } from "../../helpers/responseManager";
-import { messageDB } from "../../types/user-types";
+import { messageDB } from "../../interfaces/common-interface";
 
 export const createUser = async (req: Request, res: Response) => {
   try {

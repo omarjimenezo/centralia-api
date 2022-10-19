@@ -1,7 +1,7 @@
 import { encryptPassword } from "../../helpers/encrypt";
 import { models } from "../../models/user-model";
 import { IUser } from "../../interfaces/user-interface";
-import { messageDB } from "../../types/user-types";
+import { messageDB } from "../../interfaces/common-interface";
 import { generateJWT } from "../../utils/jwt";
 import { returnResponse } from "../../helpers/responseManager";
 

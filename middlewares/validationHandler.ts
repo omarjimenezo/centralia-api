@@ -10,6 +10,7 @@ export const validationHandler = (
     const data = req[property];
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {
+      console.error("[ErrorDetails]:", error.details);
       next(boom.badRequest());
     }
     next();

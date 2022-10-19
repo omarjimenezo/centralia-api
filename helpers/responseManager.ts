@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { messageDB } from "../types/user-types";
+import { messageDB } from "../interfaces/common-interface";
 
 export const responseSuccess = (resp: Response, data: any, code: any) => {
   resp.status(code).json({

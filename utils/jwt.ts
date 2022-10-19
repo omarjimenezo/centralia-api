@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { argumenstJWT } from "../types/user-types";
+import { argumenstJWT } from "../interfaces/common-interface";
 
 export const generateJWT = async ({ uid, nombre, rol }: argumenstJWT) => {
   const payload = { uid, nombre, rol };

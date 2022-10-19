@@ -1,12 +1,11 @@
 import Joi from "joi";
 
 const avatar = Joi.string().allow("");
-const telefono_negocio = Joi.number().min(10);
 const password = Joi.string().min(8).max(10).alphanum();
 const apellido = Joi.string();
 const nombre = Joi.string();
 const telefono_personal = Joi.number().min(10);
-const rol = Joi.string().not("");
+const rol = Joi.number();
 const email = Joi.string().email({
   minDomainSegments: 2,
   tlds: { allow: ["com", "net"] },
@@ -14,7 +13,6 @@ const email = Joi.string().email({
 
 export const userSchema = Joi.object({
   avatar: avatar.required(),
-  telefono_negocio: telefono_negocio,
   password: password.required(),
   confirmPassword: Joi.ref("password"),
   apellido: apellido.required(),
