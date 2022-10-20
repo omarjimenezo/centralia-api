@@ -1,6 +1,6 @@
 import express from "express";
 import { createUser, loginUser } from "../controllers/users/users-controller";
-import { userSchema } from "../schemas/userSchema";
+import { userSchema, loginUserSchema } from "../schemas/userSchema";
 import { validationHandler } from "../middlewares/validationHandler";
 
 const routerUser = express.Router();
@@ -11,6 +11,10 @@ routerUser.post(
   createUser
 );
 
-routerUser.post("/AuthReq", loginUser);
+routerUser.post(
+  "/AuthReq",
+  validationHandler(loginUserSchema, "body"),
+  loginUser
+);
 
 export default routerUser;

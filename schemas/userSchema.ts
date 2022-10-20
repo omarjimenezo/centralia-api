@@ -21,3 +21,8 @@ export const userSchema = Joi.object({
   rol: rol.required(),
   email: email.required(),
 });
+
+export const loginUserSchema = Joi.object({
+  email: email.required(),
+  password: password.required(),
+});
