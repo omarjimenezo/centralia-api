@@ -1,5 +1,8 @@
 import { Response } from "express";
-import { messageDB } from "../interfaces/common-interface";
+import {
+  buildResponseUserStore,
+  buildResponseLoginUserStore,
+} from "./buildResponses";
 
 export const responseSuccess = (resp: Response, data: any, code: any) => {
   resp.status(code).json({
@@ -7,6 +10,7 @@ export const responseSuccess = (resp: Response, data: any, code: any) => {
     data,
   });
 };
+
 export const responseError = (
   resp: Response,
   data: any,
@@ -21,26 +25,9 @@ export const responseError = (
 };
 
 export const returnResponse = (
-  isUnique: any,
-  responseDB: any = undefined,
-  token: string | undefined = undefined
+  resp: { [index: string]: any },
+  descriptor: string
 ) => {
-  const dataResponse: messageDB = {
-    mensaje: "",
-  };
-  if (token) {
-    dataResponse.mensaje = "usuario creado";
-    dataResponse.token = token;
-    dataResponse.nombre = responseDB.nombre;
-    dataResponse.rol = responseDB.rol;
-    return dataResponse;
-  } else if (isUnique) {
-    dataResponse.mensaje = "Algo salio mal al crear el usuario";
-    dataResponse.codigo_de_error = 1;
-    return dataResponse;
-  } else if (!responseDB) {
-    dataResponse.mensaje = "Algo salio mal al crear el usuario";
-    dataResponse.codigo_de_error = 1;
-    return dataResponse;
-  }
+  if (descriptor === "userStore") return buildResponseUserStore(resp);
+  if (descriptor === "loginUserStore") return buildResponseLoginUserStore(resp);
 };

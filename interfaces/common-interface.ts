@@ -13,3 +13,11 @@ export type argumenstJWT = {
   uid: Types.ObjectId;
   rol: number | undefined;
 };
+
+export type buildResp = {
+  token?: string;
+  isUniqueEmail?: any;
+  responseDB?: any;
+  findUser?: any;
+  validPassword?: boolean;
+};
