@@ -19,8 +19,8 @@ export const createUserStore = async (body: { [index: string]: any }) => {
       const responseDB = await user.save();
       //generate JWT
       if (responseDB) {
-        const { _id: uid, nombre, rol } = responseDB;
-        const token = await generateJWT({ uid, nombre, rol });
+        const { _id: uid, nombre, rol: usuarioRol } = responseDB;
+        const token = await generateJWT({ uid, nombre, usuarioRol });
         buildObject = {
           token,
           isUniqueEmail,
@@ -46,4 +46,3 @@ export const createUserStore = async (body: { [index: string]: any }) => {
     return "Algo salio mal al crear el usuario";
   }
 };
-

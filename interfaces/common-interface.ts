@@ -1,5 +1,13 @@
 import { Types } from "mongoose";
-import { IUser } from "./user-interface";
+
+type userLogResp = {
+  avatar: string;
+  nombre: string;
+  apellido: string;
+  rol: number;
+  telefono_personal: number;
+  usuarioEmail: string;
+};
 
 export type messageDB = {
   mensaje: string;
@@ -7,12 +15,13 @@ export type messageDB = {
   rol?: string;
   token?: string | undefined;
   codigo_de_error?: number;
+  user?: userLogResp;
 };
 
 export type argumenstJWT = {
   nombre: string;
   uid: Types.ObjectId;
-  rol: number | undefined;
+  usuarioRol: number | undefined;
 };
 
 export type buildResp = {
@@ -21,4 +30,5 @@ export type buildResp = {
   responseDB?: any;
   usuario?: any;
   validPassword?: boolean;
+  user?: userLogResp;
 };
