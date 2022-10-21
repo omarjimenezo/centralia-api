@@ -1,10 +1,9 @@
-import bcrypt from "bcryptjs";
 import { encryptPassword } from "../../helpers/encrypt";
-import { models } from "../../models/user-model";
-import { IUser } from "../../interfaces/user-interface";
-import { messageDB, buildResp } from "../../interfaces/common-interface";
-import { generateJWT } from "../../utils/jwt";
 import { returnResponse } from "../../helpers/responseManager";
+import { buildResp, messageDB } from "../../interfaces/common-interface";
+import { IUser } from "../../interfaces/user-interface";
+import { models } from "../../models/user-model";
+import { generateJWT } from "../../utils/jwt";
 
 export const createUserStore = async (body: { [index: string]: any }) => {
   try {
@@ -48,34 +47,3 @@ export const createUserStore = async (body: { [index: string]: any }) => {
   }
 };
 
-export const loginUserStore = async (body: { [index: string]: any }) => {
-  try {
-    const descriptor = "loginUserStore";
-    let buildObject: buildResp;
-    const { User } = models;
-    const { email, password } = body;
-    const findUser = await User.findOne({ email });
-    if (!findUser) {
-      buildObject = {
-        findUser,
-      };
-      return returnResponse(buildObject, descriptor);
-    }
-    const validPassword = bcrypt.compareSync(
-      password,
-      findUser.password as string
-    );
-    if (!validPassword) {
-      buildObject = {
-        validPassword,
-      };
-      return returnResponse(buildObject, descriptor);
-    }
-    const { _id: uid, nombre, rol } = findUser;
-    const token = await generateJWT({ uid, nombre, rol });
-    return { token };
-  } catch (error: any) {
-    console.error("[loginUserStoreError]: ", error.message);
-    return "Hay un error inesperado, intenta de nuevo mas tarde";
-  }
-};
