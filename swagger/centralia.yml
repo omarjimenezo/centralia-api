@@ -321,6 +321,9 @@ components:
                 token:
                     type: string
                     description: Token de autorizacion
+                usuario:
+                    type: object
+                    $ref: "#/components/schemas/UsuarioRespuesta"
 
         UsuarioCrearRequest:
             type: object

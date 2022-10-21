@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { IUser } from "./user-interface";
 
 export type messageDB = {
   mensaje: string;
@@ -18,6 +19,6 @@ export type buildResp = {
   token?: string;
   isUniqueEmail?: any;
   responseDB?: any;
-  findUser?: any;
+  usuario?: any;
   validPassword?: boolean;
 };

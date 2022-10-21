@@ -4,12 +4,18 @@ import { configDev } from "./config";
 import { dbConnection } from "./db/config";
 import { boomErroHandler } from "./middlewares/boomErrorHandler";
 
+const cors = require('cors')
+
 const app: Express = express();
 const { port, host, dbUrl } = configDev;
 //db connection
 dbConnection(dbUrl as string);
 //read body
 app.use(express.json());
+
+app.use(cors({
+  origin: '*'
+}));
 
 routerApi(app);
 //middleware to handleErrors
