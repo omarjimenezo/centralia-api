@@ -1,486 +1,488 @@
 openapi: 3.0.3
 info:
-    description: Service definition for Centralia web services
-    version: 1.0.0
-    title: Swagger Centralia
-    license:
-        name: Apache 2.0
-        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  description: Service definition for Centralia web services
+  version: 1.0.0
+  title: Swagger Centralia
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 
 servers:
-    - url: "http://localhost:8000"
+  - url: "http://localhost:8000"
 
 tags:
-    - name: Auth
-      description: Operaciones de sesión
-    - name: Usuarios
-      description: Operaciones de usuario
-    - name: Proveedores
-      description: Operaciones de proveedores
-    - name: Productos
-      description: Operaciones de productos
-    - name: Pedidos
-      description: Operaciones de pedidos
+  - name: Auth
+    description: Operaciones de sesión
+  - name: Usuarios
+    description: Operaciones de usuario
+  - name: Proveedores
+    description: Operaciones de proveedores
+  - name: Productos
+    description: Operaciones de productos
+  - name: Pedidos
+    description: Operaciones de pedidos
 
 paths:
-    /auth:
-        post:
-            tags:
-                - Auth
-            summary: Inicio de Sesión
-            description: Solicita token de autorizacion a traves de credenciales de usuario
-            operationId: auth
-            requestBody:
-                description: Iniciar Sesión
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/AuthReq"
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                allOf:
-                                    - $ref: "#/components/schemas/RespuestaComun"
-                                    - properties:
-                                          data:
-                                              $ref: "#/components/schemas/AuthRes"
-                "400":
-                    description: Invalid user/password supplied
-                "404":
-                    description: user/password not found
+  /auth:
+    post:
+      tags:
+        - Auth
+      summary: Inicio de Sesión
+      description: Solicita token de autorizacion a traves de credenciales de usuario
+      operationId: auth
+      requestBody:
+        description: Iniciar Sesión
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthReq"
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/RespuestaComun"
+                  - properties:
+                      data:
+                        $ref: "#/components/schemas/AuthRes"
+        "400":
+          description: Invalid user/password supplied
+        "404":
+          description: user/password not found
 
-    /usuarios:
-        get:
-            tags:
-                - Usuarios
-            summary: Obtener todos los usuarios
-            description: Obtiene la lista de usuarios de la plataforma
-            operationId: getUser
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                allOf:
-                                    - $ref: "#/components/schemas/RespuestaComun"
-                                    - properties:
-                                          data:
-                                              $ref: "#/components/schemas/UsuariosRespuesta"
-                "404":
-                    description: Operacion no encontrada
-            security:
-                - bearerAuth: []
-        post:
-            tags:
-                - Usuarios
-            summary: Crear un usuario
-            description: Se crea un usuario nuevo
-            operationId: createUser
-            requestBody:
-                description: Datos del usuario
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/UsuarioCrearRequest"
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/RespuestaComun"
-                "400":
-                    description: Datos inconrrectos
-                "404":
-                    description: Operacion no encontrada
-            security:
-                - bearerAuth: []
-    
-    /usuarios/{usuarioId}:
-        get:
-            tags:
-                - Usuarios
-            summary: Obtener un usuario por id
-            description: Obtiene usuario en especifico
-            operationId: getUserById
-            parameters:
-                - name: usuarioId
-                  in: path
-                  description: ID de usuario
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                allOf:
-                                    - $ref: "#/components/schemas/RespuestaComun"
-                                    - properties:
-                                          data:
-                                              $ref: "#/components/schemas/UsuarioRespuesta"
-                "404":
-                    description: Operacion no encontrada
-            security:
-                - bearerAuth: []        
-        put:
-            tags:
-                - Usuarios
-            summary: Actualiza un usuario por id
-            description: Actualiza usuario en especifico
-            operationId: updateUserById
-            parameters:
-                - name: usuarioId
-                  in: path
-                  description: ID de usuario
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                allOf:
-                                    - $ref: "#/components/schemas/RespuestaComun"
-                                    - properties:
-                                          data:
-                                              $ref: "#/components/schemas/UsuarioRespuesta"
-                "404":
-                    description: Operacion no encontrada
-            security:
-                - bearerAuth: []
+  /usuarios:
+    get:
+      tags:
+        - Usuarios
+      summary: Obtener todos los usuarios
+      description: Obtiene la lista de usuarios de la plataforma
+      operationId: getUser
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/RespuestaComun"
+                  - properties:
+                      data:
+                        $ref: "#/components/schemas/UsuariosRespuesta"
+        "404":
+          description: Operacion no encontrada
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - Usuarios
+      summary: Crear un usuario
+      description: Se crea un usuario nuevo
+      operationId: createUser
+      requestBody:
+        description: Datos del usuario
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UsuarioCrearRequest"
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RespuestaComun"
+        "400":
+          description: Datos inconrrectos
+        "404":
+          description: Operacion no encontrada
+      security:
+        - bearerAuth: []
 
-    /usuarios/rol/{rol}:
-        get:
-            tags:
-                - Usuarios
-            summary: Obtener todos los usuarios por rol
-            description: Obtiene usuarios por medio de su rol
-            operationId: getUserByRolId
-            parameters:
-                - name: rol
-                  in: path
-                  description: rol de usuario
-                  required: true
-                  schema:
-                      type: integer
-                      format: int32
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                allOf:
-                                    - $ref: "#/components/schemas/RespuestaComun"
-                                    - properties:
-                                          data:
-                                              $ref: "#/components/schemas/UsuariosRespuesta"
-                "404":
-                    description: Operacion no encontrada
-            security:
-                - bearerAuth: []
+  /usuarios/{usuarioId}:
+    get:
+      tags:
+        - Usuarios
+      summary: Obtener un usuario por id
+      description: Obtiene usuario en especifico
+      operationId: getUserById
+      parameters:
+        - name: usuarioId
+          required: true
+          in: path
+          description: ID de usuario
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/RespuestaComun"
+                  - properties:
+                      data:
+                        $ref: "#/components/schemas/UsuarioRespuesta"
+        "404":
+          description: Operacion no encontrada
+      security:
+        - bearerAuth: []
+    put:
+      tags:
+        - Usuarios
+      summary: Actualiza un usuario por id
+      description: Actualiza usuario en especifico
+      operationId: updateUserById
+      parameters:
+        - name: usuarioId
+          in: path
+          description: ID de usuario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/RespuestaComun"
+                  - properties:
+                      data:
+                        $ref: "#/components/schemas/UsuarioRespuesta"
+        "404":
+          description: Operacion no encontrada
+      security:
+        - bearerAuth: []
 
-    /proveedores:
-        get:
-            tags:
-                - Proveedores
-            summary: Obtener todos los proveedores
-            description: Obtiene la lista de proveedores de la plataforma
-            operationId: getProviders
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                allOf:
-                                    - $ref: "#/components/schemas/RespuestaComun"
-                                    - properties:
-                                          data:
-                                              $ref: "#/components/schemas/ProveedoresRespuesta"
-                "404":
-                    description: Operacion no encontrada
-        post:
-            tags:
-                - Proveedores
-            summary: Crear un proveedor
-            description: Se crea un proveedor nuevo
-            operationId: createProvider
-            requestBody:
-                description: Datos del proveedor
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/ProveedorCrearRequest"
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/RespuestaComun"
-                "400":
-                    description: Datos inconrrectos
-                "404":
-                    description: Operacion no encontrada
-            security:
-                - bearerAuth: []
+  /usuarios/rol/{rol}:
+    get:
+      tags:
+        - Usuarios
+      summary: Obtener todos los usuarios por rol
+      description: Obtiene usuarios por medio de su rol
+      operationId: getUserByRolId
+      parameters:
+        - name: rol
+          in: path
+          description: rol de usuario
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/RespuestaComun"
+                  - properties:
+                      data:
+                        $ref: "#/components/schemas/UsuariosRespuesta"
+        "404":
+          description: Operacion no encontrada
+      security:
+        - bearerAuth: []
 
-    /proveedores/{proveedorId}:
-        get:
-            tags:
-                - Proveedores
-            summary: Obtener un proveedor por id
-            description: Obtiene proveedor en especifico
-            operationId: getProviderById
-            parameters:
-                - name: proveedorId
-                  in: path
-                  description: ID de proveedor
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                allOf:
-                                    - $ref: "#/components/schemas/RespuestaComun"
-                                    - properties:
-                                          data:
-                                              $ref: "#/components/schemas/ProveedorRespuesta"
-                "404":
-                    description: Operacion no encontrada
+  /proveedores:
+    get:
+      tags:
+        - Proveedores
+      summary: Obtener todos los proveedores
+      description: Obtiene la lista de proveedores de la plataforma
+      operationId: getProviders
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/RespuestaComun"
+                  - properties:
+                      data:
+                        $ref: "#/components/schemas/ProveedoresRespuesta"
+        "404":
+          description: Operacion no encontrada
+    post:
+      tags:
+        - Proveedores
+      summary: Crear un proveedor
+      description: Se crea un proveedor nuevo
+      operationId: createProvider
+      requestBody:
+        description: Datos del proveedor
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProveedorCrearRequest"
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RespuestaComun"
+        "400":
+          description: Datos inconrrectos
+        "404":
+          description: Operacion no encontrada
+      security:
+        - bearerAuth: []
 
-    /productos/{proveedorId}:
-        get:
-            tags:
-                - Productos
-            summary: Obtener productos por id de proveedor
-            description: Obtiene lista de productos de un proveedor en especifico
-            operationId: getProductsByProviderId
-            parameters:
-                - name: proveedorId
-                  in: path
-                  description: ID de producto
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Operacion exitosa
-                    content:
-                        application/json:
-                            schema:
-                                allOf:
-                                    - $ref: "#/components/schemas/RespuestaComun"
-                                    - properties:
-                                          data:
-                                              $ref: "#/components/schemas/ProductosRespuesta"
-                "404":
-                    description: Operacion no encontrada
+  /proveedores/{proveedorId}:
+    get:
+      tags:
+        - Proveedores
+      summary: Obtener un proveedor por id
+      description: Obtiene proveedor en especifico
+      operationId: getProviderById
+      parameters:
+        - name: proveedorId
+          in: path
+          description: ID de proveedor
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/RespuestaComun"
+                  - properties:
+                      data:
+                        $ref: "#/components/schemas/ProveedorRespuesta"
+        "404":
+          description: Operacion no encontrada
+
+  /productos/{proveedorId}:
+    get:
+      tags:
+        - Productos
+      summary: Obtener productos por id de proveedor
+      description: Obtiene lista de productos de un proveedor en especifico
+      operationId: getProductsByProviderId
+      parameters:
+        - name: proveedorId
+          in: path
+          description: ID de producto
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/RespuestaComun"
+                  - properties:
+                      data:
+                        $ref: "#/components/schemas/ProductosRespuesta"
+        "404":
+          description: Operacion no encontrada
 
 components:
-    securitySchemes:
-        bearerAuth:
-            type: http
-            scheme: bearer
-            bearerFormat: JWT
-    schemas:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AuthReq:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          example: usuario@dominio.com
+          description: Email del usuario
+          format: email
+        password:
+          type: string
+          description: Contraseña del usuario
+          format: password
+    AuthRes:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Token de autorizacion
+        usuario:
+          type: object
+          $ref: "#/components/schemas/UsuarioRespuesta"
 
-        AuthReq:
-            type: object
-            required: [ email, password ]
-            properties:
-                email:
-                    type: string
-                    example: usuario@dominio.com
-                    description: Email del usuario
-                    format: email
-                password:
-                    type: string
-                    description: Contraseña del usuario
-                    format: password
-        AuthRes:
-            type: object
-            properties:
-                token:
-                    type: string
-                    description: Token de autorizacion
-                usuario:
-                    type: object
-                    $ref: "#/components/schemas/UsuarioRespuesta"
+    UsuarioCrearRequest:
+      type: object
+      required:
+        [nombre, apellido, rol, telefono_personal, password, confirmPassword]
+      properties:
+        email:
+          type: string
+        nombre:
+          type: string
+        apellido:
+          type: string
+        rol:
+          type: integer
+          format: int32
+        avatar:
+          type: string
+        telefono_personal:
+          type: integer
+          format: int32
+        confirmPassword:
+          type: string
+        password:
+          type: string
+    UsuarioUpdateRequest:
+      type: object
+      required:
+        [nombre, apellido, rol, telefono_personal, password, confirmPassword]
+      properties:
+        nombre:
+          type: string
+        apellido:
+          type: string
+        rol:
+          type: integer
+          format: int32
+        avatar:
+          type: string
+        telefono_personal:
+          type: integer
+          format: int32
+    UsuariosRespuesta:
+      type: array
+      items:
+        $ref: "#/components/schemas/UsuarioRespuesta"
+    UsuarioRespuesta:
+      type: object
+      properties:
+        usuarioEmail:
+          type: string
+        nombre:
+          type: string
+        apellido:
+          type: string
+        rol:
+          type: integer
+          format: int32
+        avatar:
+          type: string
+        telefono_personal:
+          type: integer
+          format: int32
 
-        UsuarioCrearRequest:
-            type: object
-            required: [ nombre, apellido, rol, telefono_personal, password, confirmPassword ]
-            properties:
-                email: 
-                    type: string
-                nombre:
-                    type: string
-                apellido:
-                    type: string
-                rol:
-                    type: integer
-                    format: int32
-                avatar: 
-                    type: string
-                telefono_personal: 
-                    type: integer
-                    format: int32
-                confirmPassword:
-                    type: string
-                password:
-                    type: string        
-        UsuarioUpdateRequest:
-            type: object
-            required: [ nombre, apellido, rol, telefono_personal, password, confirmPassword ]
-            properties:
-                nombre:
-                    type: string
-                apellido:
-                    type: string
-                rol:
-                    type: integer
-                    format: int32
-                avatar: 
-                    type: string
-                telefono_personal: 
-                    type: integer
-                    format: int32
-        UsuariosRespuesta:
-            type: array
-            items:
-                $ref: "#/components/schemas/UsuarioRespuesta"
-        UsuarioRespuesta:
-            type: object
-            properties:
-                email:
-                    type: string
-                nombre:
-                    type: string
-                apellido:
-                    type: string
-                rol:
-                    type: integer
-                    format: int32
-                avatar:
-                    type: string
-                telefono_personal:
-                    type: integer
-                    format: int32
-        
-        ProveedorCrearRequest:
-            type: object
-            required: [ nombre, categoria_id, calle, numero_ext, codigo_postal, colonia ]
-            properties:
-                nombre:
-                    type: string
-                categoria_id:
-                    type: integer
-                    format: int32
-                calle:
-                    type: string
-                numero_ext:
-                    type: integer
-                    format: int32
-                numero_int:
-                    type: string
-                codigo_postal:
-                    type: integer
-                    format: int32
-                colonia:
-                    type: string
-                logo:
-                    type: string
-                fachada:
-                    type: string
-                telefono_negocio:
-                    type: integer
-                    format: int32
-        ProveedoresRespuesta:
-            type: array
-            items:
-                $ref: "#/components/schemas/ProveedorRespuesta"
-        ProveedorRespuesta:
-            type: object
-            properties:
-                nombre:
-                    type: string
-                categoria_id:
-                    type: integer
-                    format: int32
-                calle:
-                    type: string
-                numero_ext:
-                    type: integer
-                    format: int32
-                numero_int:
-                    type: string
-                codigo_postal:
-                    type: integer
-                    format: int32
-                colonia:
-                    type: string
-                logo:
-                    type: string
-                fachada:
-                    type: string
-                codigo_recomendacion:
-                    type: string
-                telefono_negocio:
-                    type: integer
-                    format: int32
-                calificacion:
-                    type: integer
-                    format: int32
+    ProveedorCrearRequest:
+      type: object
+      required:
+        [nombre, categoria_id, calle, numero_ext, codigo_postal, colonia]
+      properties:
+        nombre:
+          type: string
+        categoria_id:
+          type: integer
+          format: int32
+        calle:
+          type: string
+        numero_ext:
+          type: integer
+          format: int32
+        numero_int:
+          type: string
+        codigo_postal:
+          type: integer
+          format: int32
+        colonia:
+          type: string
+        logo:
+          type: string
+        fachada:
+          type: string
+        telefono_negocio:
+          type: integer
+          format: int32
+    ProveedoresRespuesta:
+      type: array
+      items:
+        $ref: "#/components/schemas/ProveedorRespuesta"
+    ProveedorRespuesta:
+      type: object
+      properties:
+        nombre:
+          type: string
+        categoria_id:
+          type: integer
+          format: int32
+        calle:
+          type: string
+        numero_ext:
+          type: integer
+          format: int32
+        numero_int:
+          type: string
+        codigo_postal:
+          type: integer
+          format: int32
+        colonia:
+          type: string
+        logo:
+          type: string
+        fachada:
+          type: string
+        codigo_recomendacion:
+          type: string
+        telefono_negocio:
+          type: integer
+          format: int32
+        calificacion:
+          type: integer
+          format: int32
 
-        ProductosRespuesta:
-            type: array
-            items:
-                $ref: "#/components/schemas/ProductoRespuesta"
-        ProductoRespuesta:
-            type: object
-            properties:
-                producto_id:
-                    type: integer
-                    format: int32
-                proveedor_id:
-                    type: integer
-                    format: int32
-                cantidad:
-                    type: integer
-                    format: int32
-                presentacion:
-                    type: string
-                precio:
-                    type: integer
-                    format: int32
-                categoria_id:
-                    type: integer
-                    format: int32
-                
-        RespuestaComun:
-            type: object
-            properties:
-                codigo:
-                    type: integer
-                    format: int32
-                message:
-                    type: string
+    ProductosRespuesta:
+      type: array
+      items:
+        $ref: "#/components/schemas/ProductoRespuesta"
+    ProductoRespuesta:
+      type: object
+      properties:
+        producto_id:
+          type: integer
+          format: int32
+        proveedor_id:
+          type: integer
+          format: int32
+        cantidad:
+          type: integer
+          format: int32
+        presentacion:
+          type: string
+        precio:
+          type: integer
+          format: int32
+        categoria_id:
+          type: integer
+          format: int32
+
+    RespuestaComun:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int32
+        message:
+          type: string

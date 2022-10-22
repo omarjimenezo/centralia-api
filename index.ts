@@ -1,10 +1,9 @@
 import express, { Express, Request, Response } from "express"; //ESModules
+import cors from "cors";
 import { routerApi } from "./routes";
 import { configDev } from "./config";
 import { dbConnection } from "./db/config";
 import { boomErroHandler } from "./middlewares/boomErrorHandler";
-
-const cors = require('cors')
 
 const app: Express = express();
 const { port, host, dbUrl } = configDev;
@@ -13,9 +12,11 @@ dbConnection(dbUrl as string);
 //read body
 app.use(express.json());
 
-app.use(cors({
-  origin: '*'
-}));
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 routerApi(app);
 //middleware to handleErrors

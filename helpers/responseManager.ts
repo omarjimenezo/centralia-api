@@ -7,6 +7,7 @@ import {
 export const responseSuccess = (resp: Response, data: any, code: any) => {
   resp.status(code).json({
     codigo: 0,
+    mesaje: data.mensaje,
     data,
   });
 };
