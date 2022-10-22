@@ -111,6 +111,7 @@ paths:
                 - name: usuarioId
                   in: path
                   description: ID de usuario
+                  required: true
                   schema:
                       type: integer
                       format: int64
