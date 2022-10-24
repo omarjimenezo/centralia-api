@@ -10,6 +10,7 @@ const userSchema = new Schema<IUser>({
   telefono_personal: { type: Number, required: true },
   rol: { type: Number, required: true },
   avatar: { type: String, requiered: false },
+  negocio_id: { type: Number },
 });
 const User = model<IUser>("User", userSchema);
 export const models = { User };

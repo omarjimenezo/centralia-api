@@ -3,7 +3,6 @@ import { returnResponse } from "../../helpers/responseManager";
 import { buildResp } from "../../interfaces/common-interface";
 import { models } from "../../models/user-model";
 import { generateJWT } from "../../utils/jwt";
-import { number } from "joi";
 
 export const loginUserStore = async (body: { [index: string]: any }) => {
   try {
