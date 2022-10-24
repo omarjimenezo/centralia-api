@@ -15,8 +15,8 @@ tags:
       description: Operaciones de sesión
     - name: Usuarios
       description: Operaciones de usuario
-    - name: Proveedores
-      description: Operaciones de proveedores
+    - name: Negocios
+      description: Operaciones de negocios
     - name: Productos
       description: Operaciones de productos
     - name: Pedidos
@@ -144,6 +144,12 @@ paths:
                   schema:
                       type: integer
                       format: int64
+            requestBody:
+                description: Datos del usuario
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/UsuarioUpdateRequest"
             responses:
                 "200":
                     description: Operacion exitosa
@@ -191,12 +197,12 @@ paths:
             security:
                 - bearerAuth: []
 
-    /proveedores:
+    /negocios:
         get:
             tags:
-                - Proveedores
-            summary: Obtener todos los proveedores
-            description: Obtiene la lista de proveedores de la plataforma
+                - Negocios
+            summary: Obtener todos los negocios
+            description: Obtiene la lista de negocios de la plataforma
             operationId: getProviders
             responses:
                 "200":
@@ -208,21 +214,21 @@ paths:
                                     - $ref: "#/components/schemas/RespuestaComun"
                                     - properties:
                                           data:
-                                              $ref: "#/components/schemas/ProveedoresRespuesta"
+                                              $ref: "#/components/schemas/NegociosRespuesta"
                 "404":
                     description: Operacion no encontrada
         post:
             tags:
-                - Proveedores
-            summary: Crear un proveedor
-            description: Se crea un proveedor nuevo
+                - Negocios
+            summary: Crear un negocio
+            description: Se crea un negocio nuevo
             operationId: createProvider
             requestBody:
-                description: Datos del proveedor
+                description: Datos del negocio
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/ProveedorCrearRequest"
+                            $ref: "#/components/schemas/NegocioCrearRequest"
             responses:
                 "200":
                     description: Operacion exitosa
@@ -237,17 +243,17 @@ paths:
             security:
                 - bearerAuth: []
 
-    /proveedores/{proveedorId}:
+    /negocios/{negocioId}:
         get:
             tags:
-                - Proveedores
-            summary: Obtener un proveedor por id
-            description: Obtiene proveedor en especifico
-            operationId: getProviderById
+                - Negocios
+            summary: Obtener un negocio por id
+            description: Obtiene negocio en especifico
+            operationId: getBusinessById
             parameters:
-                - name: proveedorId
+                - name: negocioId
                   in: path
-                  description: ID de proveedor
+                  description: ID de negocio
                   required: true
                   schema:
                       type: integer
@@ -262,7 +268,7 @@ paths:
                                     - $ref: "#/components/schemas/RespuestaComun"
                                     - properties:
                                           data:
-                                              $ref: "#/components/schemas/ProveedorRespuesta"
+                                              $ref: "#/components/schemas/NegocioRespuesta"
                 "404":
                     description: Operacion no encontrada
 
@@ -355,6 +361,9 @@ components:
                     type: string
                 password:
                     type: string
+                negocio_id:
+                    type: integer
+                    format: int32
         UsuarioUpdateRequest:
             type: object
             required:
@@ -400,8 +409,11 @@ components:
                 telefono_personal:
                     type: integer
                     format: int32
+                negocio_id:
+                    type: integer
+                    format: int32
 
-        ProveedorCrearRequest:
+        NegocioCrearRequest:
             type: object
             required:
                 [
@@ -437,11 +449,11 @@ components:
                 telefono_negocio:
                     type: integer
                     format: int32
-        ProveedoresRespuesta:
+        NegociosRespuesta:
             type: array
             items:
-                $ref: "#/components/schemas/ProveedorRespuesta"
-        ProveedorRespuesta:
+                $ref: "#/components/schemas/NegocioRespuesta"
+        NegocioRespuesta:
             type: object
             properties:
                 nombre:
