@@ -6,6 +6,7 @@ const apellido = Joi.string();
 const nombre = Joi.string();
 const telefono_personal = Joi.number().min(10);
 const rol = Joi.number();
+const negocio_id = Joi.string();
 const email = Joi.string().email({
   minDomainSegments: 2,
   tlds: { allow: ["com", "net", "app"] },
@@ -20,4 +21,5 @@ export const userSchema = Joi.object({
   confirmPassword: Joi.ref("password"),
   telefono_personal: telefono_personal.required(),
   avatar: avatar.required(),
+  negocio_id: negocio_id,
 });

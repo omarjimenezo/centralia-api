@@ -41,6 +41,7 @@ export const buildResponseLoginUserStore = (objectData: {
       rol: usuario.rol,
       usuarioEmail: usuario.usuarioEmail,
       telefono_personal: usuario.telefono_personal,
+      negocio_id: usuario.negocio_id,
     };
     return dataResponse;
   }

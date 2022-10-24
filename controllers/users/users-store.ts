@@ -15,6 +15,7 @@ export const createUserStore = async (body: { [index: string]: any }) => {
     const isUniqueEmail = await User.findOne({ email });
     if (!isUniqueEmail) {
       const encryptData = encryptPassword(body);
+      if (!encryptData?.negocio_id) encryptData.negocio_id = null;
       const user = new User<IUser>(encryptData);
       const responseDB = await user.save();
       //generate JWT

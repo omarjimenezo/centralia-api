@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Schema, Types } from "mongoose";
 
 type userLogResp = {
   avatar: string;
@@ -7,6 +7,7 @@ type userLogResp = {
   rol: number;
   telefono_personal: number;
   usuarioEmail: string;
+  negocio_id?: Schema.Types.ObjectId | null;
 };
 
 export type messageDB = {
@@ -31,4 +32,5 @@ export type buildResp = {
   usuario?: any;
   validPassword?: boolean;
   user?: userLogResp;
+  negocio_id?: Schema.Types.ObjectId | null;
 };

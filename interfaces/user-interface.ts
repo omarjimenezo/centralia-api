@@ -1,3 +1,4 @@
+import { Schema } from "mongoose";
 export interface IUser {
   avatar: string;
   nombre: string;
@@ -7,7 +8,7 @@ export interface IUser {
   telefono_personal: number;
   password?: string;
   confirmPassword?: string;
-  negocio_id: number;
+  negocio_id?: Schema.Types.ObjectId | null;
 }
 
 enum rolUser {

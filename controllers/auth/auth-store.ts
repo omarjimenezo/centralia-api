@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { returnResponse } from "../../helpers/responseManager";
+import { fieldsToRetrive } from "../../interfaces/auth-interface";
 import { buildResp } from "../../interfaces/common-interface";
 import { models } from "../../models/user-model";
 import { generateJWT } from "../../utils/jwt";
@@ -10,15 +11,6 @@ export const loginUserStore = async (body: { [index: string]: any }) => {
     let buildObject: buildResp;
     const { User } = models;
     const { email, password } = body;
-    const fieldsToRetrive = [
-      "nombre",
-      "apellido",
-      "email",
-      "telefono_personal",
-      "rol",
-      "avatar",
-      "password",
-    ];
     const usuario = await User.findOne({ email }, fieldsToRetrive);
     if (!usuario) {
       buildObject = {
@@ -44,6 +36,7 @@ export const loginUserStore = async (body: { [index: string]: any }) => {
       telefono_personal,
       apellido,
       email: usuarioEmail,
+      negocio_id,
     } = usuario;
     const token = await generateJWT({ uid, nombre, usuarioRol });
     buildObject = {
@@ -55,6 +48,7 @@ export const loginUserStore = async (body: { [index: string]: any }) => {
         avatar,
         rol: usuarioRol || 0,
         telefono_personal,
+        negocio_id,
       },
     };
     return returnResponse(buildObject, descriptor);
