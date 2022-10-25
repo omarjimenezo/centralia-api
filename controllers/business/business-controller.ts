@@ -16,12 +16,12 @@ export const createBusiness = async (req: Request, res: Response) => {
         : responseError(res, response, boom.badRequest());
     }
   } catch (error) {
-    console.error("[createUserError]: ", error);
-    return "Algo salio mal al crear el usuario";
+    console.error("[createBusinessError]: ", error);
+    return "Algo salio mal al crear el negocio";
   }
 };
 
-export const getAllBusiness = async (res: Response) => {
+export const getAllBusiness = async (req: Request, res: Response) => {
   try {
     const response: string | any | messageDB = await getAllBusinessStore();
     if (typeof response === "string") {
@@ -32,7 +32,7 @@ export const getAllBusiness = async (res: Response) => {
         : responseError(res, response, boom.badRequest());
     }
   } catch (error) {
-    console.error("[createUserError]: ", error);
-    return "Algo salio mal al crear el usuario";
+    console.error("[getAllBusinessError]: ", error);
+    return "Algo salio mal al obtener los negocios";
   }
 };

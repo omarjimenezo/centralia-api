@@ -58,3 +58,34 @@ export const buildResponseLoginUserStore = (objectData: {
     return dataResponse;
   }
 };
+
+export const buildResponseBusinessStore = (objectData: {
+  [index: string]: any;
+}) => {
+  const dataResponse: messageDB = {
+    mensaje: "",
+  };
+  if (!objectData) {
+    dataResponse.mensaje =
+      "Algo fallo al crear el negocio, intenta de nuevo mas tarde";
+    return dataResponse;
+  }
+  dataResponse.mensaje = "Negocios creado";
+  return dataResponse;
+};
+
+export const buildResponseGetAllBusiness = (objectData: {
+  [index: string]: any;
+}) => {
+  const dataResponse: messageDB = {
+    mensaje: "",
+  };
+  if (!objectData) {
+    dataResponse.mensaje =
+      "Algo fallo al obtener los negocios, intenta de nuevo mas tarde";
+    return dataResponse;
+  }
+  dataResponse.negocios = objectData;
+  dataResponse.mensaje = "negocios obtenidos";
+  return dataResponse;
+};

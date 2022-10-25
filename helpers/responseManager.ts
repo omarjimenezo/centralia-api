@@ -2,6 +2,8 @@ import { Response } from "express";
 import {
   buildResponseUserStore,
   buildResponseLoginUserStore,
+  buildResponseBusinessStore,
+  buildResponseGetAllBusiness,
 } from "./buildResponses";
 
 export const responseSuccess = (resp: Response, data: any, code: any) => {
@@ -31,4 +33,8 @@ export const returnResponse = (
 ) => {
   if (descriptor === "userStore") return buildResponseUserStore(resp);
   if (descriptor === "loginUserStore") return buildResponseLoginUserStore(resp);
+  if (descriptor === "createBusinessStore")
+    return buildResponseBusinessStore(resp);
+  if (descriptor === "getAllBusinessStore")
+    return buildResponseGetAllBusiness(resp);
 };

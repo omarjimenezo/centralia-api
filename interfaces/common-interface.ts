@@ -17,6 +17,7 @@ export type messageDB = {
   token?: string | undefined;
   codigo_de_error?: number;
   user?: userLogResp;
+  negocios?: any;
 };
 
 export type argumenstJWT = {
