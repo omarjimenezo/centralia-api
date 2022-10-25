@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IBusiness } from "../interfaces/provider-interface";
+import { IBusiness } from "../interfaces/business-interface";
 
 const businessSchema = new Schema<IBusiness>({
   nombre: { type: String, requiered: true },
