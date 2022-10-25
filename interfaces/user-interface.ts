@@ -7,7 +7,6 @@ export interface IUser {
   email: string;
   telefono_personal: number;
   password?: string;
-  confirmPassword?: string;
   negocio_id?: Schema.Types.ObjectId | null;
 }
 

@@ -18,7 +18,6 @@ export const userSchema = Joi.object({
   email: email.required(),
   rol: rol.required(),
   password: password.required(),
-  confirmPassword: Joi.ref("password"),
   telefono_personal: telefono_personal.required(),
   avatar: avatar.required(),
   negocio_id: negocio_id,
