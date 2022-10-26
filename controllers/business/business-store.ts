@@ -1,56 +1,52 @@
-import { returnResponse } from "../../helpers/responseManager";
-import { buildResp, messageDB } from "../../interfaces/common-interface";
 import { IBusiness } from "../../interfaces/business-interface";
+import { ICommonResponse } from "../../interfaces/common-interface";
 import { models } from "../../models/business-model";
 
 export const createBusinessStore = async (body: IBusiness) => {
-  try {
-    const { Business } = models;
-    const descriptor = "createBusinessStore";
-    let response: messageDB | undefined;
-    let buildObject: buildResp;
-    const business = new Business<IBusiness>(body);
-    const responseDB = await business.save();
-    if (responseDB) {
-      buildObject = {
-        responseDB,
-      };
-      response = returnResponse(buildObject, descriptor);
-      return response;
+    try {
+        const { Business } = models;
+
+        let response: ICommonResponse | undefined;
+        const business = new Business<IBusiness>(body);
+        const responseDB = await business.save();
+
+        if (responseDB) {
+            return response = {
+                code: 0,
+                message: 'Negocio creado'
+            };
+        }
+    } catch (error: any) {
+        console.error("[createBusinessStoreFail]: ", error.message);
+        const response = {
+            code: 2,
+            message: "Algo salio mal al crear el negocio"
+        };
+
+        return response;
     }
-    buildObject = {
-      responseDB,
-    };
-    response = returnResponse(buildObject, descriptor);
-    return response;
-  } catch (error: any) {
-    console.error("[createBusinessStoreFail]: ", error.message);
-    return "Algo salio mal al crear el negocio";
-  }
 };
 
 export const getAllBusinessStore = async () => {
-  try {
-    const descriptor = "getAllBusinessStore";
-    const { Business } = models;
-    let response: messageDB | undefined;
-    let buildObject: buildResp;
-    const responseDB = await Business.find();
-    if (responseDB) {
-      buildObject = {
-        responseDB,
-      };
-      response = returnResponse(buildObject, descriptor);
+    try {
+        const { Business } = models;
 
-      return response;
+        let response: ICommonResponse | undefined;
+        const responseDB = await Business.find();
+        if (responseDB) {
+            return response = {
+                code: 0,
+                message: 'Operacion exitosa',
+                data: responseDB
+            };
+        }
+    } catch (error: any) {
+        console.error("[getAllBusinessStoreFail]: ", error.message);
+        const response = {
+            code: 2,
+            message: "Algo salio mal al obtener los negocios"
+        };
+
+        return response;
     }
-    buildObject = {
-      responseDB,
-    };
-    response = returnResponse(buildObject, descriptor);
-    return response;
-  } catch (error: any) {
-    console.error("[getAllBusinessStoreFail]: ", error.message);
-    return "Algo salio mal al obtener los negocios";
-  }
 };

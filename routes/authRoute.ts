@@ -5,10 +5,6 @@ import { authSchema } from "../schemas/authSchema";
 
 const routerAuth = express.Router();
 
-routerAuth.post(
-  "/",
-  validationHandler(authSchema, "body"),
-  auth
-);
+routerAuth.post("/", validationHandler(authSchema, "body"), auth);
 
 export default routerAuth;

@@ -14,16 +14,16 @@ const telefono_negocio = Joi.number();
 const calificacion = Joi.number();
 
 export const businessSchema = Joi.object({
-  nombre: nombre.required(),
-  categoria_id: categoria_id.required(),
-  calle: calle.required(),
-  numero_ext: numero_ext.required(),
-  numero_int: numero_int.required(),
-  codigo_postal: codigo_postal.required(),
-  colonia: colonia.required(),
-  logo: logo.required(),
-  fachada: fachada.required(),
-  codigo_recomendacion: codigo_recomendacion.required(),
-  telefono_negocio: telefono_negocio.required(),
-  calificacion: calificacion.required(),
+    nombre: nombre.required(),
+    categoria_id: categoria_id.required(),
+    calle: calle.required(),
+    numero_ext: numero_ext.required(),
+    numero_int: numero_int.required(),
+    codigo_postal: codigo_postal.required(),
+    colonia: colonia.required(),
+    logo: logo.required(),
+    fachada: fachada.required(),
+    codigo_recomendacion: codigo_recomendacion.required(),
+    telefono_negocio: telefono_negocio.required(),
+    calificacion: calificacion.required(),
 });

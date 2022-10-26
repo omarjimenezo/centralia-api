@@ -5,15 +5,8 @@ import { businessSchema } from "../schemas/businessSchema";
 
 const routerBusiness = express.Router();
 
-routerBusiness.post(
-  "/",
-  validationHandler(businessSchema, "body"),
-  createBusiness
-);
+routerBusiness.post("/", validationHandler(businessSchema, "body"), createBusiness);
 
-routerBusiness.get(
-  "/",
-  getAllBusiness
-);
+routerBusiness.get("/", getAllBusiness);
 
 export default routerBusiness;
