@@ -1,49 +1,65 @@
 import { encryptPassword } from "../../helpers/encrypt";
-import { returnResponse } from "../../helpers/responseManager";
-import { buildResp, messageDB } from "../../interfaces/common-interface";
+import { ICommonResponse } from "../../interfaces/common-interface";
 import { IUser } from "../../interfaces/user-interface";
 import { models } from "../../models/user-model";
-import { generateJWT } from "../../utils/jwt";
 
 export const createUserStore = async (body: { [index: string]: any }) => {
-  try {
-    const { User } = models;
-    const { email } = body;
-    const descriptor = "userStore";
-    let response: messageDB | undefined;
-    let buildObject: buildResp;
-    const isUniqueEmail = await User.findOne({ email });
-    if (!isUniqueEmail) {
-      const encryptData = encryptPassword(body);
-      if (!encryptData?.negocio_id) encryptData.negocio_id = null;
-      const user = new User<IUser>(encryptData);
-      const responseDB = await user.save();
-      //generate JWT
-      if (responseDB) {
-        const { _id: uid, nombre, rol: usuarioRol } = responseDB;
-        const token = await generateJWT({ uid, nombre, usuarioRol });
-        buildObject = {
-          token,
-          isUniqueEmail,
-          responseDB,
+    try {
+        const { User } = models;
+        const { email } = body;
+
+        let response: ICommonResponse | undefined;
+        const isUniqueEmail = await User.findOne({ email });
+        if (!isUniqueEmail) {
+            const encryptData = encryptPassword(body);
+
+            if (!encryptData?.negocio_id) encryptData.negocio_id = null;
+            const user = new User<IUser>(encryptData);
+            const responseDB = await user.save();
+            //generate JWT
+            if (responseDB) {
+                return response = {
+                    code: 0,
+                    message: 'Operacion exitosa',
+                };
+            }
+        } else {
+            return response = {
+                code: 1,
+                message: "El email de usuario ya existe"
+            };
+        }
+    } catch (error: any) {
+        console.error("[createUserStoreFail]: ", error.message);
+        const response = {
+            code: 2,
+            message: "Algo salio mal al crear el usuario"
         };
-        response = returnResponse(buildObject, descriptor);
+
         return response;
-      }
-      buildObject = {
-        responseDB,
-      };
-      response = returnResponse(buildObject, descriptor);
-      return response;
-    } else {
-      buildObject = {
-        isUniqueEmail,
-      };
-      response = returnResponse(buildObject, descriptor);
-      return response;
     }
-  } catch (error: any) {
-    console.error("[createUserStoreFail]: ", error.message);
-    return "Algo salio mal al crear el usuario";
-  }
+};
+
+export const getAllUsersStore = async () => {
+    try {
+        const { User } = models;
+
+        let response: ICommonResponse | undefined;
+        const responseDB = await User.find();
+        if (responseDB) {
+            return response = {
+                code: 0,
+                message: 'Operacion exitosa',
+                data: responseDB
+            };
+        }
+    } catch (error: any) {
+        console.error("[getAllUsersStoreFail]: ", error.message);
+        const response = {
+            code: 2,
+            message: "Algo salio mal al obtener los usuarios"
+        };
+
+        return response;
+    }
 };

@@ -1,38 +1,46 @@
 import boom from "@hapi/boom";
 import { Request, Response } from "express";
 import { responseError, responseSuccess } from "../../helpers/responseManager";
-import { messageDB } from "../../interfaces/common-interface";
+import { ICommonResponse } from "../../interfaces/common-interface";
 import { createBusinessStore, getAllBusinessStore } from "./business-store";
 
 export const createBusiness = async (req: Request, res: Response) => {
-  try {
-    const body = req.body;
-    const response: string | any | messageDB = await createBusinessStore(body);
-    if (typeof response === "string") {
-      responseError(res, response, boom.serverUnavailable());
-    } else if (typeof response === "object") {
-      response
-        ? responseSuccess(res, response, 200)
-        : responseError(res, response, boom.badRequest());
+    try {
+        const body = req.body;
+        const response: ICommonResponse | any = await createBusinessStore(body);
+        if (response.code === 2) {
+            responseError(res, response, boom.serverUnavailable());
+        } else if (typeof response === "object") {
+            response.code === 0
+                ? responseSuccess(res, response, 200)
+                : responseError(res, response, boom.badRequest());
+        }
+    } catch (error) {
+        console.error("[createBusinessError]: ", error);
+        const response = {
+            code: 1,
+            message: 'Hay un error inesperado, intenta de nuevo mas tarde'
+        };
+        return response;
     }
-  } catch (error) {
-    console.error("[createBusinessError]: ", error);
-    return "Algo salio mal al crear el negocio";
-  }
 };
 
 export const getAllBusiness = async (req: Request, res: Response) => {
-  try {
-    const response: string | any | messageDB = await getAllBusinessStore();
-    if (typeof response === "string") {
-      responseError(res, response, boom.serverUnavailable());
-    } else if (typeof response === "object") {
-      response
-        ? responseSuccess(res, response, 200)
-        : responseError(res, response, boom.badRequest());
+    try {
+        const response: ICommonResponse | any = await getAllBusinessStore();
+        if (response.code === 2) {
+            responseError(res, response, boom.serverUnavailable());
+        } else if (typeof response === "object") {
+            response.code === 0
+                ? responseSuccess(res, response, 200)
+                : responseError(res, response, boom.badRequest());
+        }
+    } catch (error) {
+        console.error("[getAllBusinessError]: ", error);
+        const response = {
+            code: 1,
+            message: 'Hay un error inesperado, intenta de nuevo mas tarde'
+        };
+        return response;
     }
-  } catch (error) {
-    console.error("[getAllBusinessError]: ", error);
-    return "Algo salio mal al obtener los negocios";
-  }
 };
