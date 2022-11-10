@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const avatar = Joi.string().allow("");
+const avatar = Joi.any().allow("");
 const password = Joi.string().min(8).max(12).alphanum();
 const apellido = Joi.string();
 const nombre = Joi.string();
@@ -24,6 +24,6 @@ export const userSchema = Joi.object({
   rol: rol.required(),
   password: password.required(),
   telefono_personal: telefono_personal.required(),
-  avatar: avatar.required(),
+  avatar: avatar,
   negocio_id: negocio_id,
 });

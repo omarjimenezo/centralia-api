@@ -4,12 +4,13 @@ import { ICommonResponse } from "../../interfaces/common-interface";
 import { IUser } from "../../interfaces/user-interface";
 import { models } from "../../models/user-model";
 import { buildFields } from "../../helpers/buildFields";
+import { buildSinglePath } from "../../helpers/buildPath";
 
-export const createUserStore = async (body: { [index: string]: any }) => {
+export const createUserStore = async (req: { [index: string]: any }) => {
   try {
     const { User } = models;
+    const { body, file } = req;
     const { email } = body;
-
     let response: ICommonResponse = {
       code: 0,
       message: "",
@@ -17,9 +18,9 @@ export const createUserStore = async (body: { [index: string]: any }) => {
     const isUniqueEmail = await User.findOne({ email });
     if (!isUniqueEmail) {
       const encryptData = encryptPassword(body);
-
       if (!encryptData?.negocio_id) encryptData.negocio_id = null;
-      const user = new User<IUser>(encryptData);
+      const dataToSave = buildSinglePath(body, file);
+      const user = new User<IUser>(dataToSave);
       const responseDB = await user.save();
       if (responseDB) {
         return (response = {
