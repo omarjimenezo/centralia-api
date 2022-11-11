@@ -13,7 +13,7 @@ export const generateJWT = async ({
         payload,
         process.env.SECRET_JWT_SEED as string,
         {
-          expiresIn: "120",
+          expiresIn: "2h",
         },
         (err, token) => {
           if (err) {
