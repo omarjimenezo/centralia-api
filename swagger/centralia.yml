@@ -340,7 +340,6 @@ components:
                     rol,
                     telefono_personal,
                     password,
-                    confirmPassword,
                 ]
             properties:
                 email:
@@ -357,8 +356,6 @@ components:
                 telefono_personal:
                     type: integer
                     format: int32
-                confirmPassword:
-                    type: string
                 password:
                     type: string
                 negocio_id:
@@ -373,7 +370,6 @@ components:
                     rol,
                     telefono_personal,
                     password,
-                    confirmPassword,
                 ]
             properties:
                 nombre:
