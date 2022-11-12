@@ -1,11 +1,7 @@
 export interface IBusiness {
     nombre: string;
     categoria_id: number;
-    calle: string;
-    numero_ext: number;
-    numero_int?: string;
-    codigo_postal: number;
-    colonia: string;
+    direccion: string;
     logo?: string;
     fachada?: string;
     codigo_recomendacion?: string;
