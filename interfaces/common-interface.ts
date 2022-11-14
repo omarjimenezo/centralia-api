@@ -37,3 +37,8 @@ export type filesData = {
   path: string;
   size: number;
 };
+
+export type imagesBusiness = {
+  logo: string;
+  fachada: string;
+};
