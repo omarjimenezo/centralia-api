@@ -1,13 +1,13 @@
 import { model, Schema } from "mongoose";
-import { IProductCatalog } from "../interfaces/product-interface";
+import { IProduct } from "../interfaces/product-interface";
 
-const productSchema = new Schema<IProductCatalog>({
-    producto_id: { type: Number, requiered: true },
-    proveedor_id: { type: Number, required: true },
-    precio: { type: Number, required: true },
-    cantidad: { type: Number, required: true },
-    presentacion: { type: String, required: true },
-    categoria_id: { type: Number, required: true },
+const productSchema = new Schema<IProduct>({
+    descripcion: { type: String, required: true },
+    categoria_id: { type: Schema.Types.ObjectId, ref: "ProductCategories" },
+    codigo: { type: String, required: false },
+    sku: { type: String, required: false },
+    imagenes: [{ type: String, required: true }],
+    etiquetas: [{ type: String, required: true }]
 });
-const Product = model<IProductCatalog>("Product", productSchema);
+const Product = model<IProduct>("Product", productSchema);
 export const models = { Product };

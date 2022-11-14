@@ -340,7 +340,6 @@ components:
                     rol,
                     telefono_personal,
                     password,
-                    confirmPassword,
                 ]
             properties:
                 email:
@@ -357,8 +356,6 @@ components:
                 telefono_personal:
                     type: integer
                     format: int32
-                confirmPassword:
-                    type: string
                 password:
                     type: string
                 negocio_id:
@@ -373,7 +370,6 @@ components:
                     rol,
                     telefono_personal,
                     password,
-                    confirmPassword,
                 ]
             properties:
                 nombre:
@@ -419,10 +415,7 @@ components:
                 [
                     nombre,
                     categoria_id,
-                    calle,
-                    numero_ext,
-                    codigo_postal,
-                    colonia,
+                    domicilio,
                 ]
             properties:
                 nombre:
@@ -430,17 +423,7 @@ components:
                 categoria_id:
                     type: integer
                     format: int32
-                calle:
-                    type: string
-                numero_ext:
-                    type: integer
-                    format: int32
-                numero_int:
-                    type: string
-                codigo_postal:
-                    type: integer
-                    format: int32
-                colonia:
+                domicilio:
                     type: string
                 logo:
                     type: string
@@ -461,17 +444,7 @@ components:
                 categoria_id:
                     type: integer
                     format: int32
-                calle:
-                    type: string
-                numero_ext:
-                    type: integer
-                    format: int32
-                numero_int:
-                    type: string
-                codigo_postal:
-                    type: integer
-                    format: int32
-                colonia:
+                domicilio:
                     type: string
                 logo:
                     type: string
