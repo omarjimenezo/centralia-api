@@ -37,7 +37,7 @@ export const getAllBusinessStore = async () => {
     let response: ICommonResponse | undefined;
     const responseDB = await querys(Business, {
       method: "getAll",
-      nameField: "categoria_id",
+      mainField: "categoria_id",
     });
     if (responseDB) {
       return (response = {

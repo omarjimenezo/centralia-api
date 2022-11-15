@@ -51,8 +51,9 @@ export const getAllUsersStore = async () => {
     const { User } = models;
     let response: ICommonResponse | undefined;
     const responseDB = await querys(User, {
-      nameField: "negocio_id",
+      mainField: "negocio_id",
       method: "getAll",
+      subField: "categoria_id",
     });
     if (responseDB) {
       return (response = {
@@ -79,9 +80,9 @@ export const getUserByIdStore = async (request: any) => {
     const fields = buildFields(fieldsToRetrive, "password");
     const responseDB = await querys(User, {
       method: "getById",
-      nameField: "negocio_id",
+      mainField: "negocio_id",
       id,
-      configFields: fields,
+      retrieveFields: fields,
     });
     let response: ICommonResponse | undefined;
     if (responseDB) {

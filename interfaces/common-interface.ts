@@ -44,8 +44,9 @@ export type imagesBusiness = {
 };
 
 export interface ICongifOptions {
-  nameField: string;
+  mainField: string;
   method: string;
+  subField?: string;
   id?: string;
-  configFields?: Array<string>;
+  retrieveFields?: Array<string>;
 }
