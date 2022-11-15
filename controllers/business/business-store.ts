@@ -2,6 +2,7 @@ import { IBusiness } from "../../interfaces/business-interface";
 import { ICommonResponse } from "../../interfaces/common-interface";
 import { models } from "../../models/business-model";
 import { buildMultiplePaths } from "../../helpers/buildPath";
+import { querys } from "../../helpers/querySearch";
 
 export const createBusinessStore = async (req: { [index: string]: any }) => {
   try {
@@ -34,7 +35,10 @@ export const getAllBusinessStore = async () => {
     const { Business } = models;
 
     let response: ICommonResponse | undefined;
-    const responseDB = await Business.find();
+    const responseDB = await querys(Business, {
+      method: "getAll",
+      nameField: "categoria_id",
+    });
     if (responseDB) {
       return (response = {
         code: 0,

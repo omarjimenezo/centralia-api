@@ -42,3 +42,10 @@ export type imagesBusiness = {
   logo: string;
   fachada: string;
 };
+
+export interface ICongifOptions {
+  nameField: string;
+  method: string;
+  id?: string;
+  configFields?: Array<string>;
+}
