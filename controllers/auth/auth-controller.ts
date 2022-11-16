@@ -8,7 +8,7 @@ export const auth = async (req: Request, res: Response) => {
     try {
         const response: ICommonResponse | any = await authStore(req.body);
         if (response.code === 2) {
-            responseError(res, response, boom.serverUnavailable());
+            responseError(res, response, boom.internal());
         } else if (typeof response === "object") {
             (response?.data && typeof response?.data.token)
                 ? responseSuccess(res, response, 200)

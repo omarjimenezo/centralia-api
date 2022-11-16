@@ -8,7 +8,7 @@ export const createBusiness = async (req: Request, res: Response) => {
   try {
     const response: ICommonResponse | any = await createBusinessStore(req);
     if (response.code === 2) {
-      responseError(res, response, boom.serverUnavailable());
+      responseError(res, response, boom.internal());
     } else if (typeof response === "object") {
       response.code === 0
         ? responseSuccess(res, response, 200)
@@ -28,7 +28,7 @@ export const getAllBusiness = async (req: Request, res: Response) => {
   try {
     const response: ICommonResponse | any = await getAllBusinessStore();
     if (response.code === 2) {
-      responseError(res, response, boom.serverUnavailable());
+      responseError(res, response, boom.internal());
     } else if (typeof response === "object") {
       response.code === 0
         ? responseSuccess(res, response, 200)
