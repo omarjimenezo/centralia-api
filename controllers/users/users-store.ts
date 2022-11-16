@@ -1,6 +1,9 @@
 import { encryptPassword } from "../../helpers/encrypt";
 import { fieldsToRetrive } from "../../interfaces/auth-interface";
-import { ICommonResponse } from "../../interfaces/common-interface";
+import {
+  ICommonResponse,
+  ICongifOptions,
+} from "../../interfaces/common-interface";
 import { IUser } from "../../interfaces/user-interface";
 import { models } from "../../models/user-model";
 import { buildFields } from "../../helpers/buildFields";
@@ -49,12 +52,13 @@ export const createUserStore = async (req: { [index: string]: any }) => {
 export const getAllUsersStore = async () => {
   try {
     const { User } = models;
-    let response: ICommonResponse | undefined;
-    const responseDB = await querys(User, {
+    const configFieldOptions: ICongifOptions = {
       mainField: "negocio_id",
       method: "getAll",
       subField: "categoria_id",
-    });
+    };
+    let response: ICommonResponse | undefined;
+    const responseDB = await querys(User, configFieldOptions);
     if (responseDB) {
       return (response = {
         code: 0,
@@ -78,12 +82,14 @@ export const getUserByIdStore = async (request: any) => {
     const { id } = request.params;
     const { User } = models;
     const fields = buildFields(fieldsToRetrive, "password");
-    const responseDB = await querys(User, {
+    const configFieldOptions: ICongifOptions = {
       method: "getById",
       mainField: "negocio_id",
+      subField: "categoria_id",
       id,
       retrieveFields: fields,
-    });
+    };
+    const responseDB = await querys(User, configFieldOptions);
     let response: ICommonResponse | undefined;
     if (responseDB) {
       return (response = {

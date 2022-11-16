@@ -19,6 +19,11 @@ export const businessSchema = Joi.object({
   telefono_negocio: telefono_negocio.required(),
   calificacion: calificacion.required(),
 });
+const negocioId = Joi.string().not().allow("");
+
+export const negocioIdSchema = Joi.object({
+  id: negocioId.required(),
+});
 
 export const businessCategoriesSchema = Joi.object({
   nombre: nombre.required(),

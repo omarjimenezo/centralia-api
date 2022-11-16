@@ -1,5 +1,8 @@
 import { IBusiness } from "../../interfaces/business-interface";
-import { ICommonResponse } from "../../interfaces/common-interface";
+import {
+  ICommonResponse,
+  ICongifOptions,
+} from "../../interfaces/common-interface";
 import { models } from "../../models/business-model";
 import { buildMultiplePaths } from "../../helpers/buildPath";
 import { querys } from "../../helpers/querySearch";
@@ -51,6 +54,40 @@ export const getAllBusinessStore = async () => {
     const response = {
       code: 2,
       message: "Algo salio mal al obtener los negocios",
+    };
+
+    return response;
+  }
+};
+
+export const getBusinessByIdStore = async (request: any) => {
+  try {
+    const { Business } = models;
+    const { id } = request.params;
+    const configFieldOptions: ICongifOptions = {
+      method: "getById",
+      mainField: "categoria_id",
+      id,
+    };
+    const responseDB = await querys(Business, configFieldOptions);
+    let response: ICommonResponse | undefined;
+    if (responseDB) {
+      return (response = {
+        code: 0,
+        message: "Operacion exitosa",
+        data: responseDB,
+      });
+    } else {
+      return (response = {
+        code: 2,
+        message: "Algo salio mal intenta de nuevo mas tarde",
+      });
+    }
+  } catch (error: any) {
+    console.error("[getBusinessByIdStoreFail]: ", error.message);
+    const response = {
+      code: 2,
+      message: "Algo salio mal al obtener el negocio por id",
     };
 
     return response;
