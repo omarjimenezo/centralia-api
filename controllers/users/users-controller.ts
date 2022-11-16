@@ -12,7 +12,7 @@ export const createUser = async (req: Request, res: Response) => {
   try {
     const response: ICommonResponse | any = await createUserStore(req);
     if (response.code === 2) {
-      responseError(res, response, boom.serverUnavailable());
+      responseError(res, response, boom.internal());
     } else if (typeof response === "object") {
       response.code === 0
         ? responseSuccess(res, response, 200)
@@ -32,7 +32,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const response: ICommonResponse | any = await getAllUsersStore();
     if (response.code === 2) {
-      responseError(res, response, boom.serverUnavailable());
+      responseError(res, response, boom.internal());
     } else if (typeof response === "object") {
       response.code === 0
         ? responseSuccess(res, response, 200)
@@ -52,7 +52,7 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     const response: ICommonResponse | any = await getUserByIdStore(req);
     if (response.code === 2) {
-      responseError(res, response, boom.serverUnavailable());
+      responseError(res, response, boom.internal());
     } else if (typeof response === "object") {
       response.code === 0
         ? responseSuccess(res, response, 200)

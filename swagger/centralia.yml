@@ -405,9 +405,8 @@ components:
                 telefono_personal:
                     type: integer
                     format: int32
-                negocio_id:
-                    type: integer
-                    format: int32
+                negocio:
+                    $ref: "#/components/schemas/NegocioRespuesta"
 
         NegocioCrearRequest:
             type: object

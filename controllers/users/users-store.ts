@@ -66,7 +66,7 @@ export const getAllUsersStore = async () => {
     console.error("[getAllUsersStoreFail]: ", error.message);
     const response = {
       code: 2,
-      message: "Algo salio mal al obtener los usuarios",
+      message: "Algo salio mal al obtener todos los usuarios",
     };
 
     return response;
@@ -101,7 +101,7 @@ export const getUserByIdStore = async (request: any) => {
     console.error("[getAllUsersStoreFail]: ", error.message);
     const response = {
       code: 2,
-      message: "Algo salio mal al obtener los usuarios",
+      message: "Algo salio mal al obtener el usuario por id",
     };
 
     return response;

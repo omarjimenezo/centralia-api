@@ -14,14 +14,21 @@ export const validateJWT = (
   }
 
   try {
-    const jwtverified = jwt.verify(
+    jwt.verify(
       token,
       process.env.SECRET_JWT_SEED as string,
       (err: any, decoded: any) => {
         if (err) {
-          console.log("[errorVerifyJWT]: ", err.message);
-          next(boom.badRequest());
-          return false;
+          switch (err.name) {
+            case "TokenExpiredError":
+              console.error("[errorVerifyJWT]: ", err.message);
+              next(boom.unauthorized());
+              return false;
+            default:
+              console.error("[errorVerifyJWT]: ", err.message);
+              next(boom.badRequest());
+              return false;
+          }
         }
         return decoded;
       }
