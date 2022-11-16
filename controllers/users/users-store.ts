@@ -5,6 +5,7 @@ import { IUser } from "../../interfaces/user-interface";
 import { models } from "../../models/user-model";
 import { buildFields } from "../../helpers/buildFields";
 import { buildSinglePath } from "../../helpers/buildPath";
+import { querys } from "../../helpers/querySearch";
 
 export const createUserStore = async (req: { [index: string]: any }) => {
   try {
@@ -48,9 +49,12 @@ export const createUserStore = async (req: { [index: string]: any }) => {
 export const getAllUsersStore = async () => {
   try {
     const { User } = models;
-
     let response: ICommonResponse | undefined;
-    const responseDB = await User.find();
+    const responseDB = await querys(User, {
+      mainField: "negocio_id",
+      method: "getAll",
+      subField: "categoria_id",
+    });
     if (responseDB) {
       return (response = {
         code: 0,
@@ -74,7 +78,12 @@ export const getUserByIdStore = async (request: any) => {
     const { id } = request.params;
     const { User } = models;
     const fields = buildFields(fieldsToRetrive, "password");
-    const responseDB = await User.findById({ _id: id }, fields);
+    const responseDB = await querys(User, {
+      method: "getById",
+      mainField: "negocio_id",
+      id,
+      retrieveFields: fields,
+    });
     let response: ICommonResponse | undefined;
     if (responseDB) {
       return (response = {

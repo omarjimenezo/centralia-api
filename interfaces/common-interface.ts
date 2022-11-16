@@ -37,3 +37,16 @@ export type filesData = {
   path: string;
   size: number;
 };
+
+export type imagesBusiness = {
+  logo: string;
+  fachada: string;
+};
+
+export interface ICongifOptions {
+  mainField: string;
+  method: string;
+  subField?: string;
+  id?: string;
+  retrieveFields?: Array<string>;
+}
