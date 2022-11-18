@@ -11,6 +11,7 @@ export interface IProduct {
 
 export interface IProductImg {
     url: string;
+    public: boolean;
 }
 
 export interface IProductTag {
