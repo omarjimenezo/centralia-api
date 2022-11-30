@@ -1,52 +1,52 @@
 import { Types } from "mongoose";
 
 export type ICommonResponse = {
-  code: number;
-  message: string;
-  data?: any;
+    code: number;
+    message: string;
+    data?: any;
 };
 
 export type argumenstJWT = {
-  nombre: string;
-  uid: Types.ObjectId;
-  usuarioRol: number | undefined;
+    nombre: string;
+    uid: Types.ObjectId;
+    usuarioRol: number | undefined;
 };
 
 export type JwtPayload = {
-  uid: string;
-  nombre: string;
-  usuarioRol: number;
-  fechaExpiracion: number;
-  emitido: number;
+    uid: string;
+    nombre: string;
+    usuarioRol: number;
+    fechaExpiracion: number;
+    emitido: number;
 };
 
 export type file = {
-  name: string;
-  maxCount: number;
+    name: string;
+    maxCount: number;
 };
 
 export type files = Array<file>;
 
 export type filesData = {
-  fieldname: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  destination: string;
-  filename: string;
-  path: string;
-  size: number;
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number;
 };
 
 export type imagesBusiness = {
-  logo: string;
-  fachada: string;
+    logo: string;
+    fachada: string;
 };
 
 export interface ICongifOptions {
-  mainField: string;
-  method: string;
-  subField?: string;
-  id?: string;
-  retrieveFields?: Array<string>;
+    mainField: string;
+    method: string;
+    subField?: string;
+    id?: string;
+    retrieveFields?: Array<string>;
 }
