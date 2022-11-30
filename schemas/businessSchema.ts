@@ -10,21 +10,21 @@ const telefono_negocio = Joi.number().allow(null);
 const calificacion = Joi.number().allow(null);
 
 export const businessSchema = Joi.object({
-  nombre: nombre.required(),
-  categoria_id: categoria_id.required(),
-  direccion: direccion.required(),
-  logo: logo,
-  fachada: fachada,
-  codigo_recomendacion: codigo_recomendacion.required(),
-  telefono_negocio: telefono_negocio.required(),
-  calificacion: calificacion.required(),
+    nombre: nombre.required(),
+    categoria_id: categoria_id.required(),
+    direccion: direccion.required(),
+    logo: logo,
+    fachada: fachada,
+    codigo_recomendacion: codigo_recomendacion.required(),
+    telefono_negocio: telefono_negocio.required(),
+    calificacion: calificacion.required(),
 });
 const negocioId = Joi.string().not().allow("");
 
 export const negocioIdSchema = Joi.object({
-  id: negocioId.required(),
+    id: negocioId.required(),
 });
 
 export const businessCategoriesSchema = Joi.object({
-  nombre: nombre.required(),
+    nombre: nombre.required(),
 });

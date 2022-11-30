@@ -1,6 +1,7 @@
 import express from "express";
 import routerAuth from "./authRoute";
 import routerUser from "./usersRoute";
+import routerProduct from "./productsRoute";
 import routerBusiness from "./businessRoute"; "./businessRoute";
 
 export const routerApi = (app: express.Express) => {
@@ -11,4 +12,5 @@ export const routerApi = (app: express.Express) => {
     router.use("/auth", routerAuth);
     router.use("/usuarios", routerUser);
     router.use("/negocios", routerBusiness);
+    router.use("/productos", routerProduct);
 };

@@ -1,8 +1,8 @@
 import express from "express";
 import {
-  createUser,
-  getAllUsers,
-  getUserById,
+    createUser,
+    getAllUsers,
+    getUserById,
 } from "../controllers/users/users-controller";
 
 import { validationHandler } from "../middlewares/validationHandler";
@@ -13,19 +13,19 @@ import { uploadFilesMiddleware } from "../middlewares/uploadFiles";
 const routerUser = express.Router();
 
 routerUser.post(
-  "/",
-  uploadFilesMiddleware("createUser"),
-  validationHandler(userSchema, "body"),
-  createUser
+    "/",
+    uploadFilesMiddleware("createUser"),
+    validationHandler(userSchema, "body"),
+    createUser
 );
 
 routerUser.get("/", validateJWT, getAllUsers);
 
 routerUser.get(
-  "/:id",
-  validateJWT,
-  validationHandler(userIdSchema, "params"),
-  getUserById
+    "/:id",
+    validateJWT,
+    validationHandler(userIdSchema, "params"),
+    getUserById
 );
 
 export default routerUser;
